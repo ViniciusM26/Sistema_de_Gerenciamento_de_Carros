@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- 
+    Página de exibição de detalhes de um carro.
+
+    Este template exibe as informações detalhadas de um carro específico, incluindo foto, modelo, marca, ano de fabricação, 
+    preço e outros dados. Caso o usuário esteja autenticado, ele pode editar ou excluir o carro, caso contrário, só pode voltar à lista de carros.
+
+    Funcionalidades principais:
+    - Exibição de foto, marca, modelo, ano de fabricação e outras informações sobre o carro.
+    - Condicional para mostrar o botão de editar e excluir apenas para usuários autenticados.
+    - Botão de "Voltar" para não autenticados.
+  -->
+
+  <style>
+    /* Estilo do cartão que exibe os detalhes do carro */
+    .car-card {
+      background-color: #e3e1e1;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      transition: all 0.3s ease;
+      max-width: 500px;
+      margin: 20px auto 0;
+      margin-bottom: 20px;
+    }
+
+    /* Estilo do cartão do carro quando o cursor passa por cima */
+    .car-card:hover {
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Estilo da imagem do carro */
+    .car-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    /* Estilo do título do carro (marca e modelo) */
+    .car-card h2 {
+      font-size: 1.5rem;
+      margin: 10px;
+    }
+
+    /* Estilo dos parágrafos de informações sobre o carro */
+    .car-card p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    /* Estilo do contêiner de botões */
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* Estilo dos botões */
+    .btn {
+      display: inline-block;
+      background-color: #0096c7;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      margin: 0 10px;
+    }
+
+    /* Estilo do botão ao passar o mouse sobre ele */
+    .btn:hover {
+      background-color: #108eb8;
+    }
+
+    /* Estilo do botão de deletar */
+    .btn-danger {
+      background-color: #d9534f;
+      text-decoration: none !important;
+    }
+
+    /* Estilo do botão de deletar ao passar o mouse */
+    .btn-danger:hover {
+      background-color: #d2221c;
+    }
+
+    /* Estilo das mensagens de erro */
+    .error-message {
+      color: #d9534f;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    /* Estilo dos links (remove sublinhado) */
+    a {
+      text-decoration: none !important;
+    }
+  </style>
+
+  <!-- Cartão que exibe as informações do carro -->
+  <div class="car-card">
+    {% if object.photo %}
+      <!-- Exibe a foto do carro, caso exista -->
+      <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}">
+    {% else %}
+      <!-- Caso não exista foto, exibe uma mensagem -->
+      <p class="no-photo">Foto não disponível</p>
+    {% endif %}
+    <!-- Exibe as informações do carro (marca, modelo, ano, preço, etc.) -->
+    <h2>{{ object.brand }} {{ object.model }}</h2>
+    <p><strong>Ano de fabricação:</strong> {{ object.factory_year }}</p>
+    <p><strong>Ano do modelo:</strong> {{ object.model_year }}</p>
+    <p><strong>Placa:</strong> {{ object.plate }}</p>
+    <p><strong>Preço:</strong> R$ {{ object.value }}</p>
+    {% if object.bio %}
+      <!-- Exibe a biografia do carro (se existir) -->
+      <p><strong>Bio:</strong> {{ object.bio }}</p>
+    {% endif %}
+  </div>
+
+  <!-- Botões de ação, visíveis apenas para usuários autenticados -->
+  {% if user.is_authenticated %}
+    <div class="buttons-container">
+      <!-- Botão de voltar -->
+      <a href="{% url 'cars_list' %}" class="btn btn-primary" >Voltar</a>
+      <!-- Botão para editar o carro -->
+      <a href="{% url 'car_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
+      <!-- Botão para deletar o carro -->
+      <a href="{% url 'car_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
+    </div>
+  {% endif %}
+
+  <!-- Botão de voltar, visível para usuários não autenticados -->
+  {% if not user.is_authenticated %} 
+    <div  class="buttons-container"> 
+      <a href="{% url 'cars_list' %}" class="btn btn-primary" >Voltar</a> 
+    </div> 
+  {% endif %}
+{% endblock %}

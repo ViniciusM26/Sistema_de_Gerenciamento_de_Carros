@@ -1,15 +1,25 @@
-
 {% extends "base.html" %}
 
 {% block content %}
+    <!-- 
+        Formulário de cadastro de carros.
+
+        Este template estende o template base.html e exibe um formulário para o usuário cadastrar um novo carro. 
+        O formulário utiliza o método POST e permite o envio de arquivos (multipart/form-data) caso o modelo inclua imagens.
+
+        Elementos principais:
+        - {% csrf_token %} : Adiciona um token CSRF para segurança contra ataques CSRF.
+        - {{ form.as_table }} : Renderiza os campos do formulário organizados em uma tabela.
+        - <input type="submit"> : Botão de envio do formulário.
+    -->
+
     <form method="post" enctype="multipart/form-data"> 
-        {% csrf_token %}
+        {% csrf_token %} <!-- Token de segurança para evitar ataques CSRF -->
 
         <table>
-            {{ new_car_form.as_table }}
+            {{ form.as_table }} <!-- Renderiza os campos do formulário como uma tabela -->
         </table>
         
-        <input type="submit" value="Cadastrar" class="btn btn-primary">
-
+        <input type="submit" value="Cadastrar" class="btn btn-primary"> <!-- Botão para enviar o formulário -->
     </form>
 {% endblock %}

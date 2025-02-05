@@ -1,8 +1,21 @@
-
-{% extends "base.html"%}
+{% extends "base.html" %}
 
 {% block content %}
+  <!-- 
+    Página de listagem de carros.
+
+    Este template exibe uma grade de carros cadastrados, permitindo a busca por modelo.
+    Cada carro é representado por um cartão contendo uma imagem, marca, modelo, ano de fabricação e valor.
+
+    Funcionalidades principais:
+    - Campo de busca para filtrar carros por nome do modelo.
+    - Listagem de carros em um layout responsivo baseado em grid.
+    - Estilização com CSS para um design moderno e responsivo.
+    - Links nos cartões para acessar os detalhes de cada carro.
+  -->
+
   <style>
+    /* Layout da grade de carros */
     .car-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -12,6 +25,7 @@
       padding: 20px;
     }
 
+    /* Estilo do cartão de carro */
     .car-card {
       background-color: #e3e1e1;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
@@ -27,18 +41,36 @@
         transform: translateY(-2px);
     }
 
+    /* Estilo do contêiner de botões */
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* Estilo dos botões */
+    .btn {
+      display: inline-block;
+      background-color: #0096c7;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      margin: 0 10px;
+    }
+
+    /* Imagem dentro do cartão */
     .car-card img {
       width: 100%;
       height: 200px;
       object-fit: cover;
     }
 
-    .car-card h3 {
-        font-size: 20px;
-        margin-top: 10px;
-        margin-bottom: 5px;
-    }
-
+    /* Estilo do título e textos dentro do cartão */
     .car-card h2 {
       font-size: 1.5rem;
       margin: 10px;
@@ -49,12 +81,14 @@
       margin-bottom: 10px;
     }
 
+    /* Responsividade: Ajusta para duas colunas em telas menores */
     @media (max-width: 768px) {
       .car-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
+    /* Estilização do formulário de busca */
     form {
         display: flex;
         justify-content: center;
@@ -64,6 +98,7 @@
         padding: 20px;
     }
 
+    /* Campo de entrada do formulário */
     input[type="text"] {
         padding: 10px;
         font-size: 16px;
@@ -78,6 +113,7 @@
         border-bottom-color: #e3e1e1;
     }
 
+    /* Botão de busca */
     button[type="submit"] {
         background-color: #0096c7;
         color: #fff;
@@ -92,24 +128,53 @@
     button[type="submit"]:hover {
         background-color: #108eb8;
     }
+
+    /* Links para detalhes dos carros */
+    a {
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #0096c7;
+    }
   </style>
 
+  <!-- Formulário de busca -->
   <form method="GET" action="{% url 'cars_list' %}">
     <input type="text" name="search" placeholder="Buscar carro...">
     <button type="submit">Buscar</button>
   </form>
 
+  <!-- Exibição dos carros cadastrados -->
   <div class="car-grid">
     {% if cars %}
       {% for car in cars %}
-        <div class="car-card">
-          <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
-          <h2>{{ car.brand }} {{ car.model }}</h2>
-          <p>{{ car.factory_year }} - R$ {{ car.value }}</p>
-        </div>
+        <a href="{% url 'car_detail' car.pk %}">
+          <div class="car-card">
+            <!-- Exibe a imagem do carro se disponível, caso contrário, mostra uma mensagem -->
+            {% if car.photo %}
+              <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+            {% else %}
+              <p class="no-photo">Foto não disponível</p>
+            {% endif %}
+            <!-- Exibe informações do carro -->
+            <h2>{{ car.brand }} {{ car.model }}</h2>
+            <p>{{ car.factory_year }} - R$ {{ car.value }}</p>
+          </div>
+        </a>
       {% endfor %}
     {% else %}
+      <!-- Mensagem caso nenhum carro seja encontrado na busca -->
       <p class="no-results">Nenhum carro encontrado.</p>
     {% endif %}
   </div>
+  <!-- Exibe o botão "Voltar" apenas quando um termo de busca for inserido, permitindo retornar à lista completa de carros -->
+  {% if request.GET.search %}
+  <div class="buttons-container"> 
+    <a href="{% url 'cars_list' %}" class="btn btn-primary">Voltar</a> 
+  </div> 
+  {% endif %}
+
 {% endblock %}
