@@ -1,8 +1,8 @@
-🚗 Sistema de Gerenciamento e Revenda de Carros
+### 🚗 Sistema de Gerenciamento e Revenda de Carros
 
 Bem-vindo ao Sistema de Gerenciamento e Revenda de Carros, um projeto desenvolvido em Django que facilita a administração e revenda de veículos. Este sistema inclui funcionalidades de cadastro, edição, exclusão e visualização detalhada de carros, além de integração com IA para gerar descrições automáticas dos veículos.
 
-📌 Principais Funcionalidades
+### 📌 Principais Funcionalidades
 
 ✅ Gerenciamento de carros (CRUD completo)
 
@@ -16,7 +16,7 @@ Bem-vindo ao Sistema de Gerenciamento e Revenda de Carros, um projeto desenvolvi
 
 ✅ Banco de Dados PostgreSQL para melhor escalabilidade
 
-🏗️ Tecnologias Utilizadas:
+### 🏗️ Tecnologias Utilizadas:
 
 🔹 Linguagem: Python 3.11.2
 
@@ -36,28 +36,42 @@ Bem-vindo ao Sistema de Gerenciamento e Revenda de Carros, um projeto desenvolvi
 
 🚀 Como Instalar e Configurar o Projeto:
 
-1️⃣ Clone o Repositório
+### 1️⃣ Clone o Repositório
 
-``` git clone https://github.com/ViniciusM26/Cars.git ```
+``` 
+git clone https://github.com/ViniciusM26/Cars.git
+```
 
-``` cd seu-repositorio ```
+``` 
+cd seu-repositorio
+```
 
-2️⃣ Crie e Ative o Ambiente Virtual
+### 2️⃣ Crie e Ative o Ambiente Virtual
 
-``` python -m venv venv ```
+```
+python -m venv venv 
+```
 
-``` source venv/bin/activate ```
+``` 
+source venv/bin/activate
+```
 
-No Windows:  ``` venv\Scripts\activate ```
+No Windows:  
+``` 
+venv\Scripts\activate
+```
 
-3️⃣ Instale as Dependências
+### 3️⃣ Instale as Dependências
 
-``` pip install -r requirements.txt ```
+``` 
+pip install -r requirements.txt
+```
 
-4️⃣ Configure as Variáveis de Ambiente
+### 4️⃣ Configure as Variáveis de Ambiente
 
 Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis (baseado no .env.example):
 
+```
 DATABASE_NAME=cars
 
 DATABASE_USER=seu_usuario
@@ -69,26 +83,33 @@ DATABASE_HOST=localhost
 DATABASE_PORT=5432
 
 GEMINI_API_KEY=sua_chave_aqui
+```
 
 🔴 Importante: Nunca compartilhe seu arquivo .env publicamente!
 
-5️⃣ Configure o Banco de Dados
+### 5️⃣ Configure o Banco de Dados
 
 Certifique-se de que o PostgreSQL está instalado e rodando. Em seguida, aplique as migrações:
 
-``` python manage.py migrate ```
+``` 
+python manage.py migrate
+```
 
 Se desejar, crie um superusuário para acessar o painel administrativo:
 
-``` python manage.py createsuperuser ```
+``` 
+python manage.py createsuperuser
+```
 
-6️⃣ Inicie o Servidor
+### 6️⃣ Inicie o Servidor
 
-``` python manage.py runserver  ```
+``` 
+python manage.py runserver
+```
 
 Agora, acesse ``` http://127.0.0.1:8000/ ``` no navegador para visualizar o sistema.
 
-🧠 Integração com IA - Google Gemini
+### 🧠 Integração com IA - Google Gemini
 
 O sistema conta com integração de IA para gerar descrições automáticas dos carros.
 
@@ -104,13 +125,15 @@ O sistema conta com integração de IA para gerar descrições automáticas dos 
 
 1️⃣ Obtenha uma chave de API no Google AI Studio:
 
-``` https://aistudio.google.com/apikey ```
+``` 
+https://aistudio.google.com/apikey
+```
 
 2️⃣ Adicione a chave no seu arquivo .env:
 
 GEMINI_API_KEY=sua_chave_aqui
 
-🔥 Possíveis Melhorias:
+### 🔥 Possíveis Melhorias:
 
 📌 Melhorar UI/UX dos templates
 
