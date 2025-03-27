@@ -39,7 +39,7 @@ Bem-vindo ao Sistema de Gerenciamento e Revenda de Carros, um projeto desenvolvi
 ### 1️⃣ Clone o Repositório
 
 ``` 
-git clone https://github.com/ViniciusM26/Cars.git
+[git clone https://github.com/ViniciusM26/Sistema_de_Gerenciamento_de_Carros.git
 ```
 
 ``` 
